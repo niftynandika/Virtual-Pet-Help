@@ -4,7 +4,6 @@ const Bodies = Matter.Bodies;
 const World = Matter.World;
 
 //Create variables here
-//var dogImage, happyDogImage;
 var dogSprite;
 var dog, happyDog;
 var foodS, foodStock;
@@ -24,8 +23,9 @@ function setup() {
   database = firebase.database();
   dogSprite = createSprite(250,250,100,100);
   imageMode(CENTER);
+  
   //image(dog,250,250,100,100);
-  dogSprite.addImage(dog,100,100,5,5);
+ // dogSprite.addImage(dog,100,100,5,5);
   dogSprite.scale=0.15;
 
   foodStock=database.ref("food");
@@ -51,11 +51,8 @@ function draw() {
 
   foodObj.display();
   fedTime = database.ref("FeedTime");
-
  
   drawSprites();
-
-  foodObj.display();
 
   //add styles here
   textSize(20);
@@ -63,18 +60,15 @@ function draw() {
   stroke(10);
   
   text("Milk bottles remaining: "+ foodS,125,30);
-  text("Last yummy meal : "+ lastFed,125,450);
+  text("Last yummy meal: "+ lastFed,125,450);
 }
 
 function readStock(data){
   foodS = data.val();
-  console.log(foodS);
-
 }
 
 function readTime(data){
   lastFed = data.val();
-
 }
 
 
@@ -93,6 +87,8 @@ var currentTime = hour();
   database.ref('/').update({
     FeedTime:currentTime
   })
+
+  dogSprite.addImage(happyDog,100,100,5,5);
 }
 
 function reStock(){
@@ -102,7 +98,6 @@ function reStock(){
     food:foodS
   })
 
+  dogSprite.addImage(dog,100,100,5,5);
   
-
-  console.log(foodS);
 }
